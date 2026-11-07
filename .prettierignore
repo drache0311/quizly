@@ -1,0 +1,5 @@
+node_modules
+npm_packages
+dist
+coverage
+storybook-static
