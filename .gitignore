@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+storybook-static/
+node_modules/
+npm_packages/
+coverage/
+dist/
+dist-ssr
+*.local
+yarn-error.log
+*.zip
