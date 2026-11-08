@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react'
 import { Outlet, useRoutes } from 'react-router'
-import Single from '../pages/single/Single'
+import SingleQuestion from '../pages/question/SingleQuestion'
+import SingleKeyword from '../pages/keyword/SingleKeyword'
+import Home from '../pages/Home'
+import AllKeyword from '../pages/keyword/AllKeyword'
 
 const Layout = () => {
   return (
@@ -15,9 +18,11 @@ const AppRouter = () => {
     {
       element: <Layout />,
       children: [
-        { index: true, element: <Single /> },
+        { index: true, element: <Home /> },
+        { path: 'single-question', element: <SingleQuestion /> },
         { path: 'ten', element: <Fragment /> },
-        { path: 'all', element: <Fragment /> },
+        { path: 'single-keyword', element: <SingleKeyword /> },
+        { path: 'all-keyword', element: <AllKeyword /> },
       ],
     },
   ])
