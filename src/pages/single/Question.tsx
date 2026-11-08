@@ -24,7 +24,7 @@ const Question = ({
 }: QuestionType & { toNext: () => void }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
-  const beforeClick = selectedOption !== null
+  const afterClick = selectedOption !== null
 
   return (
     <div>
@@ -33,14 +33,14 @@ const Question = ({
         <h3>{question}</h3>
         <div>
           {options.map((option, index) => (
-            <button key={index} disabled={beforeClick} onClick={() => setSelectedOption(index + 1)}>
+            <button key={index} disabled={afterClick} onClick={() => setSelectedOption(index + 1)}>
               <span>{index + 1}</span>
               <span>{option}</span>
             </button>
           ))}
         </div>
-        <div>{beforeClick && selectedOption !== answer && explanation}</div>
-        <div>{beforeClick && selectedOption !== answer && answer}</div>
+        <div>{afterClick && selectedOption !== answer && explanation}</div>
+        <div>{afterClick && selectedOption !== answer && answer}</div>
         {annotation && <div>{annotation}</div>}
       </article>
       <button onClick={toNext}>Next</button>
