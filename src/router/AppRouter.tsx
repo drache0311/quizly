@@ -1,15 +1,12 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import { Outlet, useRoutes } from 'react-router'
-import Single from "../pages/single/Single";
-
+import Single from '../pages/single/Single'
 
 const Layout = () => {
   return (
-      <div className="wrapper">
-          <section className="content">
-              <Outlet />
-          </section>
-      </div>
+    <div className="wrapper">
+      <Outlet />
+    </div>
   )
 }
 
@@ -21,8 +18,8 @@ const AppRouter = () => {
         { index: true, element: <Single /> },
         { path: 'ten', element: <Fragment /> },
         { path: 'all', element: <Fragment /> },
-      ]
-    }
+      ],
+    },
   ])
 }
 

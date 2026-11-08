@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import classNames from 'classnames'
 
 export type QuestionCategory = 'fund'
 
@@ -13,6 +14,12 @@ export interface QuestionType {
   annotation?: string
 }
 
+interface Navigator {
+  move: (direction: 'prev' | 'next') => void
+  hasPrevious: boolean
+  hasNext: boolean
+}
+
 const Question = ({
   question,
   options,
@@ -20,30 +27,50 @@ const Question = ({
   explanation,
   img,
   annotation,
-  toNext,
-}: QuestionType & { toNext: () => void }) => {
+  move,
+  hasPrevious,
+  hasNext,
+}: QuestionType & Navigator) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
   const afterClick = selectedOption !== null
+  const correct = afterClick && selectedOption === answer
 
   return (
-    <div>
-      <article>
+    <div className="question-container">
+      <article className="question">
         {img && <img src={`/questions/img/${img}.png`} alt="" />}
         <h3>{question}</h3>
-        <div>
+        <div className="options">
           {options.map((option, index) => (
-            <button key={index} disabled={afterClick} onClick={() => setSelectedOption(index + 1)}>
+            <button
+              key={index}
+              disabled={afterClick}
+              className={classNames('option', {
+                idle: !afterClick,
+                answer: correct && selectedOption === index + 1,
+                wrong: !correct && answer === index + 1,
+              })}
+              onClick={() => setSelectedOption(index + 1)}
+            >
               <span>{index + 1}</span>
               <span>{option}</span>
             </button>
           ))}
         </div>
-        <div>{afterClick && selectedOption !== answer && explanation}</div>
-        <div>{afterClick && selectedOption !== answer && answer}</div>
-        {annotation && <div>{annotation}</div>}
+        <div className="explanation">{afterClick && `👉 ${explanation}`}</div>
+        <div className="annotation">{annotation && `👀 ${annotation}`}</div>
       </article>
-      <button onClick={toNext}>Next</button>
+      {hasPrevious && (
+        <button className="navigator" onClick={() => move('prev')}>
+          Previous
+        </button>
+      )}
+      {hasNext && (
+        <button className="navigator" onClick={() => move('next')}>
+          Next
+        </button>
+      )}
     </div>
   )
 }

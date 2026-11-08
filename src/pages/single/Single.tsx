@@ -13,7 +13,22 @@ const Single = () => {
   return questionList
     .filter((_, index) => index === currentQuestionIndex)
     .map((question) => (
-      <Question key={question.question} {...question} toNext={() => setCurrentQuestionIndex((prev) => prev + 1)} />
+      <Question
+        key={question.question}
+        {...question}
+        move={(direction) => {
+          switch (direction) {
+            case 'next':
+              setCurrentQuestionIndex((prev) => prev + 1)
+              break
+            case 'prev':
+              setCurrentQuestionIndex((prev) => prev - 1)
+              break
+          }
+        }}
+        hasNext={currentQuestionIndex !== questionList.length - 1}
+        hasPrevious={currentQuestionIndex !== 0}
+      />
     ))
 }
 
