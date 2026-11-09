@@ -3,12 +3,12 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(() => {
   return {
-    plugins: [
-      react(),
-    ],
+    plugins: [react()],
     server: {
-      open: 'http://localhost:5173',
+      open: 'http://localhost:6174',
       host: '0.0.0.0',
+      allowedHosts: true,
+      port: 6174
     },
   }
 })
