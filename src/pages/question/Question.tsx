@@ -12,9 +12,18 @@ export interface QuestionType {
   explanation: string
   img?: string
   annotation?: string
+  'question-number'?: string[]
 }
 
-const Question = ({ question, options, answer, explanation, img, annotation }: QuestionType) => {
+const Question = ({
+  question,
+  'question-number': questionNumber,
+  options,
+  answer,
+  explanation,
+  img,
+  annotation,
+}: QuestionType) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
   const afterClick = selectedOption !== null
@@ -24,6 +33,11 @@ const Question = ({ question, options, answer, explanation, img, annotation }: Q
     <article className="question">
       {img && <img src={`/datas/img/${img}.png`} alt="" />}
       <h3>{question}</h3>
+      <div className="question-number">
+        {questionNumber?.map((qn) => (
+          <span key={qn}>{qn}</span>
+        ))}
+      </div>
       <div className="options">
         {options.map((option, index) => (
           <button
